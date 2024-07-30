@@ -1,19 +1,17 @@
-
 import  {ethers}  from "ethers";
 import PrimaryButton from "./buttons/PrimaryButton";
 import { useState } from "react";
 
 export default function Login() {
-
-
     const [provider, setProvider] = useState(null)
     const [isConnected, setIsConnected] = useState(false)
+
     async function connect() {
-      
+      // @ts-ignore
       if(window.ethereum) {
         try {
             // @ts-ignore
-         const provider = ethers.providers.Web3Provider(window.ethereum)// why this 
+         const provider = ethers.providers.Web3Provider(window.ethereum)  // why this 
          setProvider(provider) 
          await provider.send("eth_requestAccounts", []);
          const signer = provider.getSigner();
@@ -22,7 +20,7 @@ export default function Login() {
          console.log(
           address
          );
-        } catch(e) {
+        } catch(e: any) {
           console.log(e);
         }
       } else {
