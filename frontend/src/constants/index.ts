@@ -1,6 +1,6 @@
-const CONTRACT_ADDRESS ='0x14c92123952d20650CDAbA02B0481b119f1e106F'
+export const CONTRACT_ADDRESS ='0x14c92123952d20650CDAbA02B0481b119f1e106F'
 
-const abi =  [
+ export const abi =  [
     {
       "inputs": [
         {
@@ -135,4 +135,4 @@ const abi =  [
     }
   ];
 
-  export {CONTRACT_ADDRESS, abi}
+ 

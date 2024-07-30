@@ -1,14 +1,13 @@
-
-
 import './App.css'
+import Login from './components/Login'
 
 function App() {
 
   return (
     <>
-      <div className="font-bold">
-        Hello
-      </div>
+    <div className="pt-24">
+    <Login/>
+    </div>
     </>
   )
 }
