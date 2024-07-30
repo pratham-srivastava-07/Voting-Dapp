@@ -1,11 +1,11 @@
 import  {ethers}  from "ethers";
-import PrimaryButton from "./buttons/PrimaryButton";
 import { useState } from "react";
+import PrimaryButton from "./buttons/PrimaryButton";
 
 export default function Login() {
-    const [provider, setProvider] = useState(null)
+    const [provider, setProvider] = useState<ethers.providers.Web3Provider | null>(null);
     const [isConnected, setIsConnected] = useState(false)
-
+    const [account, setAccount] = useState()
     async function connect() {
      // @ts-ignore
       if(window.ethereum) {
@@ -30,9 +30,7 @@ export default function Login() {
       }
     }
   
-
-
-    return <div className="pt-40">
+    return <div className="pt-20">
         <div className="flex justify-center">
             <div className="welcome text-3xl max-w-3xl">
                 Welcome to Decentralized voting application
