@@ -7,17 +7,17 @@ export default function Login() {
     const [isConnected, setIsConnected] = useState(false)
 
     async function connect() {
-      // @ts-ignore
+     // @ts-ignore
       if(window.ethereum) {
         try {
             // @ts-ignore
-         const provider = ethers.providers.Web3Provider(window.ethereum)  // why this 
+         const provider = new ethers.providers.Web3Provider(window.ethereum)  // why this 
          setProvider(provider) 
          await provider.send("eth_requestAccounts", []);
          const signer = provider.getSigner();
          const address = await signer.getAddress();
          setIsConnected(true);
-         console.log(
+         console.log("MetaMask Connected:",
           address
          );
         } catch(e: any) {
