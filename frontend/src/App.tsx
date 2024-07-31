@@ -45,10 +45,28 @@ function App() {
         const contractInstance = await new ethers.Contract(
           CONTRACT_ADDRESS, contractAbi, signer
         )
-        const candidates = contractInstance.getAllCandidates();
+        const candidates = await contractInstance.getAllCandidates();
         setCandidates(candidates);
   }
 
+
+  async function voteCandidate(candidateName: any) {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    const contractInstance = await new ethers.Contract(
+      CONTRACT_ADDRESS, contractAbi, signer
+    )
+    try {
+      const tx = await contractInstance.voteCandidate();
+      await tx.wait() // waits for the  tx to be mined
+    }
+    catch(e) {
+      console.log("error", e);
+    }
+  }
+  
+  // async function
   return (
     <>
     <div className="pt-24">
