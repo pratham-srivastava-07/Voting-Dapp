@@ -16,9 +16,7 @@ function App() {
   }
 
   useEffect(()=> {
-    // @ts-ignore
     if(window.ethereum) {
-      // @ts-ignore
       window.ethereum.on('accountsChanged', handleChange)
     }
 
@@ -50,7 +48,7 @@ function App() {
   }
 
 
-  async function voteCandidate(candidateName: any) {
+  async function voteSingleCandidate(candidateName: any) {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
@@ -58,7 +56,7 @@ function App() {
       CONTRACT_ADDRESS, contractAbi, signer
     )
     try {
-      const tx = await contractInstance.voteCandidate();
+      const tx = await contractInstance.voteCandidates(candidateName);
       await tx.wait() // waits for the  tx to be mined
     }
     catch(e) {
@@ -66,7 +64,37 @@ function App() {
     }
   }
   
-  // async function
+  async function getVotes(candidateName: any) {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    const contractInstance = await new ethers.Contract(
+      CONTRACT_ADDRESS, contractAbi, signer
+    )
+    try {
+      const tx = contractInstance.getVotesOfCandidates(candidateName);
+      await tx.wait()
+    } catch(err) {
+      console.log(err);
+      
+    }
+  }
+
+  async function getCandidates() {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    const contractInstance = await new ethers.Contract(
+      CONTRACT_ADDRESS, contractAbi, signer
+    )
+    try {
+      const tx = contractInstance.getAllCandidates();
+      await tx.wait();
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
   return (
     <>
     <div className="pt-24">
